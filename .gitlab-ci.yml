@@ -21,6 +21,7 @@ unittest_job:
         - echo "DB_DATABASE_TEST=ci_test" >> .env
         - echo "DB_USERNAME_TEST=root" >> .env
         - echo "DB_PASSWORD_TEST=" >> .env
+        - touch database/database.sqlite
         - php artisan key:generate
         - php artisan migrate:refresh --seed --database=mysql_testing
         - ./vendor/bin/phpunit
