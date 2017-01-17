@@ -10,6 +10,8 @@ cleantest_job:
 
 unittest_job:
     image: javanlabs/gitlab-ci-php70:latest
+    services:
+        - mysql:5.7
     script:
         - composer install --no-progress --prefer-dist --no-scripts
         - echo "APP_ENV=local" >> .env
