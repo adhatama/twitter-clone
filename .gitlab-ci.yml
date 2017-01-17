@@ -1,0 +1,19 @@
+cleantest_job:
+    image: javanlabs/gitlab-ci-php70:latest
+    script:
+        - composer install --no-progress --prefer-dist --no-scripts
+        - ./vendor/bin/phpcs --standard=PSR2 app/
+
+unittest_job:
+    image: javanlabs/gitlab-ci-php70:latest
+    script:
+        - composer install --no-progress --prefer-dist --no-scripts
+        - echo "APP_ENV=local" >> .env
+        - echo "APP_KEY=" >> .env
+        - echo "DB_CONNECTION=mysql" >> .env
+        - echo "DB_HOST=mysql" >> .env
+        - echo "DB_DATABASE=ci_test" >> .env
+        - echo "DB_USERNAME=root" >> .env
+        - echo "DB_PASSWORD=" >> .env
+        - php artisan migrate:refresh --seed
+        - ./vendor/bin/phpunit
