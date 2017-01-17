@@ -14,12 +14,12 @@ unittest_job:
         - mysql:5.7
     script:
         - composer install --no-progress --prefer-dist --no-scripts
-        - echo "APP_ENV=local" >> .env
+        - echo "APP_ENV=testing" >> .env
         - echo "APP_KEY=" >> .env
-        - echo "DB_CONNECTION=mysql" >> .env
-        - echo "DB_HOST=mysql" >> .env
-        - echo "DB_DATABASE=ci_test" >> .env
-        - echo "DB_USERNAME=root" >> .env
-        - echo "DB_PASSWORD=" >> .env
+        - echo "DB_CONNECTION_TEST=mysql_test" >> .env
+        - echo "DB_HOST_TEST=mysql" >> .env
+        - echo "DB_DATABASE_TEST=ci_test" >> .env
+        - echo "DB_USERNAME_TEST=root" >> .env
+        - echo "DB_PASSWORD_TEST=" >> .env
         - php artisan migrate:refresh --seed
         - ./vendor/bin/phpunit
