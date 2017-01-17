@@ -1,6 +1,9 @@
-variables:
-    MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-    MYSQL_DATABASE: "ci_test"
+before_script:
+    - apt-get update -qq && apt-get install -y -qq sqlite3 libsqlite3-dev
+
+# variables:
+#     MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+#     MYSQL_DATABASE: "ci_test"
 
 cleantest_job:
     image: javanlabs/gitlab-ci-php70:latest
@@ -10,8 +13,8 @@ cleantest_job:
 
 unittest_job:
     image: javanlabs/gitlab-ci-php70:latest
-    services:
-        - mysql:5.7
+    # services:
+    #     - mysql:5.7
     script:
         - composer install --no-progress --prefer-dist --no-scripts
         - echo "APP_ENV=testing" >> .env
