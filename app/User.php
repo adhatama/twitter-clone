@@ -59,4 +59,14 @@ class User extends Authenticatable
 
         return $this;
     }
+
+    public function getTweets()
+    {
+        return Tweet::where('user_id', $this->id)->get();
+    }
+
+    public function countTweets()
+    {
+        return Tweet::where('user_id', $this->id)->count();
+    }
 }

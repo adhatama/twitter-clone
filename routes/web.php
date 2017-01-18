@@ -15,5 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::post('/create', ['uses' => 'TweetController@create', 'as' => 'tweet.create']);
+Route::get('/users/getTweets/{id}', ['uses' => 'UserController@getTweets', 'as' => 'users.getTweets']);
+Route::resource('users', 'UserController');
 Route::resource('tweet', 'TweetController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

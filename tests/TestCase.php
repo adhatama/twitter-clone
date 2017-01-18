@@ -29,6 +29,6 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         // file_put_contents(__DIR__.'/database.sqlite', null);
 
-        $this->artisan('migrate:refresh', ['--seed' => true]);
+        // $this->artisan('migrate:refresh', ['--seed' => true]);
     }
 }
