@@ -19,9 +19,11 @@ unittest_job:
         - composer install --no-progress --prefer-dist --no-scripts
         - echo "APP_ENV=testing" >> .env
         - echo "APP_KEY=" >> .env
-        - echo "DB_CONNECTION=sqlite" >> .env
-        - echo "DB_DATABASE=database/database.sqlite" >> .env
-        - touch database/database.sqlite
+        - echo "DB_CONNECTION_TEST=mysql_test" >> .env
+        - echo "DB_HOST_TEST=mysql" >> .env
+        - echo "DB_DATABASE_TEST=ci_test" >> .env
+        - echo "DB_USERNAME_TEST=root" >> .env
+        - echo "DB_PASSWORD_TEST=" >> .env
         - php artisan key:generate
-        - php artisan migrate:refresh --seed
+        - php artisan migrate:refresh --seed --database=mysql_test
         - ./vendor/bin/phpunit
