@@ -16,7 +16,7 @@ class TweetController extends Controller
     {
         $countTweets = Auth::user()->countTweets();
 
-        if ($countTweets > 5) {
+        if ($countTweets >= 5) {
             return redirect()->route('tweet.create')
                 ->with(['status' => 'error', 'message' => 'Error! Tweet cannot be more than 5']);
         }

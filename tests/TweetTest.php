@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
+use App\Tweet;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class TweetTest extends TestCase
 {
@@ -39,7 +40,27 @@ class TweetTest extends TestCase
         $response = $this->actingAs($user)->call('POST', route('tweet.store'), ['tweet' => 'My Lovely Tweet!']);
 
         // verify
+        $this->assertEquals(302, $response->status());
+        $this->assertRedirectedTo(route('tweet.create'));
         $this->seeInDatabase('tweets', ['tweet' => 'My Lovely Tweet!']);
+    }
+
+    public function test_max_tweet_created_per_user()
+    {
+        // setup
+        $user = factory(App\User::class)->create();
+
+        foreach (range(1, 5) as $i) {
+            $user->createTweet('My tweet ' . $i);
+        }
+
+        // exercise
+        $response = $this->actingAs($user)->call('POST', route('tweet.store'), ['tweet' => 'My failed tweet']);
+
+        // verify
+        $this->assertEquals(302, $response->status());
+        $this->assertEquals('error', session('status'));
+        $this->notSeeInDatabase('tweets', ['tweet' => 'My failed tweet']);
     }
 
     public function test_user_follow_someone()
