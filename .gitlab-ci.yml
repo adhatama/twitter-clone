@@ -1,6 +1,3 @@
-before_script:
-    - apt-get update -qq && apt-get install -y -qq sqlite3 libsqlite3-dev
-
 variables:
     MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     MYSQL_DATABASE: "ci_test"
