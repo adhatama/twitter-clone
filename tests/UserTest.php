@@ -52,4 +52,14 @@ class UserTest extends TestCase
         $this->seeInDatabase('tweets', ['tweet' => $tweetB->tweet]);
 
     }
+
+    // public function test_create_user_with_mock()
+    // {
+    //     // setup
+    //     $mock = Mockery::mock(App\Models\User::class)->shouldReceive('save')->once();
+    //     $this->app()->instance(App\Models\User::class, $mock);
+
+    //     // exercise
+
+    // }
 }
